@@ -1,0 +1,35 @@
+---
+title: "Developing Data Products - Week 2 assignment"
+author: "MahVal"
+date: "October 30, 2018"
+output: html_document
+---
+
+## Introduction
+
+The goal of this assignment is to create a web page using R Markdown that features a map created with Leaflet. 
+
+## Developing Data Products
+
+```{r}
+options(repos=structure(c(CRAN="https://cran.cnr.berkeley.edu/")))
+# load required package:
+install.packages("leaflet")
+library(leaflet)
+```
+
+```{r}
+#Load dataset
+df <- read.csv("worldcities.csv")
+
+#Set developing data product
+df %>% leaflet() %>%
+  addTiles() %>%
+  addMarkers(
+    lat = df$lat, 
+    lng = df$lng, 
+    popup = paste(df$popup, "<br>", "City name:", df$city_ascii),
+    clusterOptions = markerClusterOptions())
+```
+
+
